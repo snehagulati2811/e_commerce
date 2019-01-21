@@ -1,0 +1,60 @@
+<html>
+<head>
+	<link href="css/slider.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<?php 
+ //session_start();
+ //include("connect_to_mysql.php");
+?>
+
+	<div id="main_header">
+    	<div id="site_title"><h1><a href="#" rel="nofollow">RANGOLI</a></h1></div>
+        
+        <div id="header_right">
+			<?php 
+				if(isset($_SESSION['log'])){
+				if($_SESSION['log']==1){
+					echo "Welcome"." " .$_SESSION['userid']."!!";
+					echo '<a href=Logout.php><u>Logout</u></a>'."  " ;					
+				} 
+				} else {$_SESSION['log'] = "";}
+				
+				if(isset($_SESSION['usertype'])){
+				if(($_SESSION['usertype']== 'Employee') || ($_SESSION['usertype']== 'Business_Manager') ) {
+					echo '<button><i class="fa fa-child fa-3x" aria-hidden="true"></i><a href="admin/admin_list_all_product.php"> Employee</a></button>';
+				}
+				
+				if(($_SESSION['usertype']== 'Administrator') || ($_SESSION['usertype']== 'Business_Manager')){
+					echo '<button><i class="fa fa-users fa-3x" aria-hidden="true"></i><a href="user_manage.php"> Admin</a></button>';
+				}
+				}else {$_SESSION['usertype'] = "";}
+				?>
+			
+			
+			<button><i class="fa fa-home fa-3x" aria-hidden="true"></i><a href="all_product_display.php"> Home</a></button>
+            <?php 
+				if($_SESSION['log']==1){
+					echo '<button><i class="fa fa-user fa-3x" aria-hidden="true"></i><a href="View_profile.php"> My Account</a></button>';  }
+				else {
+					echo '<button><i class="fa fa-user fa-3x" aria-hidden="true"></i><a href="index.php"> My Account</a></button>';
+				}
+			?>
+            <?php 
+				if(isset($_SESSION['cartCount'])){ 
+					echo '<button><i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i><a href="shoppingcart.php"> Cart('.
+						$_SESSION['cartCount'].')</a></button>';
+				} else {
+					$_SESSION['cartCount'] = 0;
+					echo '<button><i class="fa fa-shopping-cart fa-3x" aria-hidden="true"></i><a href="shoppingcart.php"> Cart('.
+						$_SESSION['cartCount'].')</a></button>';
+				}
+				?>
+         </div> <!-- END -->
+    </div> <!-- END of header -->
+</body>
+</html>
